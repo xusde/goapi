@@ -22,17 +22,17 @@ func Authorization(next http.Handler) http.Handler {
 		}
 		// check again db
 		var db *tools.DatabaseInterface
-		db, err = tools.NewDataBase()
+		db, err = tools.NewDatabase()
 		if err != nil {
 			api.InternalErrorHandler(w)
 			return 
 		}
 
-		var loginDetails *tools.loginDetails
-		loginDetails = (*db).GetLoginDetails(username)
+		var loginDetails *tools.LoginDetails
+		loginDetails = (*db).GetUserLoginDetails(username)
 		if (loginDetails == nil || (token != (*loginDetails).AuthToken)) {
 			log.Error(UnauthorizedError)
-			api.RequestErrorHandler(w. UnauthorizedError)
+			api.RequestErrorHandler(w, UnauthorizedError)
 			return
 		}
 		next.ServeHTTP(w, r)

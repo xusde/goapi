@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
-	"github.com/xusde/internal/handlers"
+	"github.com/xusde/goapi/internal/handlers"
 )
 
 func main() {
@@ -18,4 +18,7 @@ func main() {
 
 	fmt.Println("Sarting Go API service...")
 	err := http.ListenAndServe("localhost:8000", r)
+	if err != nil {
+		log.Error(err)
+	}
 }
