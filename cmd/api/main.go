@@ -5,7 +5,17 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
-	"github.com/xusde/goapi/internal/handlers"
 	log "github.com/sirupsen/logrus"
+	"github.com/xusde/internal/handlers"
 )
 
+func main() {
+	// turn on report logger
+	log.SetReportCaller(true)
+
+	var r *chi.Mux = chi.NewRouter()
+	handlers.Handler(r)
+
+	fmt.Println("Sarting Go API service...")
+	err := http.ListenAndServe("localhost:8000", r)
+}
